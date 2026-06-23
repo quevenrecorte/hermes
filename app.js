@@ -1,3 +1,5 @@
+emailjs.init("gZEqoaLW8uSprpcyt");
+
 const form = document.getElementById("emailForm");
 
 form.addEventListener("submit", function (e) {
@@ -25,5 +27,25 @@ form.addEventListener("submit", function (e) {
     return;
   }
 
-  alert("Hermes is ready to send email.");
+  const templateParams = {
+    to_email: recipient,
+    subject: subject,
+    message: message,
+    name: "Hermes User"
+  };
+
+  emailjs.send(
+    "service_1drjo6p",
+    "template_scpcz1q",
+    templateParams
+  )
+  .then(function () {
+    alert("Email sent successfully!");
+
+    form.reset();
+  })
+  .catch(function (error) {
+    console.error("FAILED...", error);
+    alert("Failed to send email.");
+  });
 });
