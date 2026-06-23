@@ -6,49 +6,52 @@
   <title>Hermes</title>
   <link rel="stylesheet" href="style.css" />
 </head>
-<body>
+<div class="background-shapes">
+  <div class="circle circle1"></div>
+  <div class="circle circle2"></div>
+  <div class="dots dots1"></div>
+  <div class="dots dots2"></div>
+</div>
 
-  <div class="container">
-    <div class="card">
-      <h1>HERMES</h1>
-      <p class="subtitle">Emergency Mail System</p>
+<div class="container">
+  <div class="card">
+    <h1>HERMES</h1>
+    <p class="subtitle">Emergency Mail System</p>
 
-      <form id="emailForm">
-        <label for="contact">Recipient</label>
-        <select id="contact">
-          <option value="">Select Contact</option>
-          <option value="family@email.com">Family</option>
-          <option value="admin@email.com">Lighthouse Admin</option>
-        </select>
+    <form id="emailForm">
 
-        <div class="divider">OR</div>
+      <label for="contact">Recipient</label>
+      <select id="contact">
+        <option value="">Select Contact</option>
+        <option value="family@email.com">Family</option>
+        <option value="admin@email.com">Lighthouse Admin</option>
+      </select>
 
-        <label for="manualEmail">Manual Email</label>
-        <input
-          type="email"
-          id="manualEmail"
-          placeholder="Enter email address"
-        />
+      <div class="divider">OR</div>
 
-        <label for="subject">Subject</label>
-        <input
-          type="text"
-          id="subject"
-          placeholder="Enter subject"
-        />
+      <label for="manualEmail">Manual Email</label>
+      <input
+        type="email"
+        id="manualEmail"
+        placeholder="Enter email address"
+      />
 
-        <label for="message">Message</label>
-        <textarea
-          id="message"
-          rows="8"
-          placeholder="Type your message here..."
-        ></textarea>
+      <label for="subject">Subject</label>
+      <input
+        type="text"
+        id="subject"
+        placeholder="Enter subject"
+      />
 
-        <button type="submit">SEND EMAIL</button>
-      </form>
-    </div>
+      <label for="message">Message</label>
+      <textarea
+        id="message"
+        rows="7"
+        placeholder="Type your message here..."
+      ></textarea>
+
+      <button type="submit">✈ SEND EMAIL</button>
+    </form>
   </div>
-
-  <script src="app.js"></script>
-</body>
+</div>
 </html>
