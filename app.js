@@ -4,6 +4,14 @@ const manualEmailInput = document.getElementById("manualEmail");
 const subjectInput = document.getElementById("subject");
 const messageInput = document.getElementById("message");
 
+const pinModal = document.getElementById("pinModal");
+const pinInput = document.getElementById("pinInput");
+const confirmPin = document.getElementById("confirmPin");
+const cancelPin = document.getElementById("cancelPin");
+const pinError = document.getElementById("pinError");
+
+let pendingRecipient = null;
+
 // Load contacts from core.json
 async function loadContacts() {
   try {
@@ -21,27 +29,59 @@ async function loadContacts() {
   }
 }
 
+// Show PIN modal
+function showPinModal(recipient) {
+  pendingRecipient = recipient;
+  pinInput.value = "";
+  pinError.textContent = "";
+  confirmPin.textContent = "Confirm";
+  confirmPin.disabled = false;
+  pinModal.classList.remove("hidden");
+  pinInput.focus();
+}
+
+// Hide PIN modal
+function hidePinModal() {
+  pinModal.classList.add("hidden");
+}
+
 // Validate PIN from runtime.json
-async function validatePin() {
+async function checkPin() {
   try {
     const response = await fetch("data/runtime.json");
     const data = await response.json();
 
-    const enteredPin = prompt("Enter PIN to send email:");
-
-    if (enteredPin === null) {
-      return false;
+    if (pinInput.value !== data.pin) {
+      pinError.textContent = "Invalid PIN";
+      pinInput.value = "";
+      pinInput.focus();
+      return;
     }
 
-    return enteredPin === data.pin;
+    pinError.textContent = "";
+    confirmPin.textContent = "✈ Sending...";
+    confirmPin.disabled = true;
+
+    form.action = `https://formsubmit.co/${pendingRecipient}`;
+
+    setTimeout(() => {
+      form.submit();
+    }, 500);
+
   } catch (error) {
     console.error("Failed to load PIN:", error);
-    return false;
+    pinError.textContent = "PIN validation failed";
   }
 }
 
+// Confirm PIN button
+confirmPin.addEventListener("click", checkPin);
+
+// Cancel button
+cancelPin.addEventListener("click", hidePinModal);
+
 // Form submit handler
-form.addEventListener("submit", async function (e) {
+form.addEventListener("submit", function (e) {
   e.preventDefault();
 
   const selectedContact = contactSelect.value;
@@ -66,18 +106,12 @@ form.addEventListener("submit", async function (e) {
     return;
   }
 
-  const pinValid = await validatePin();
-
-  if (!pinValid) {
-    alert("Invalid PIN.");
-    return;
+  showPinModal(recipient);
+});
+pinInput.addEventListener("keypress", function (e) {
+  if (e.key === "Enter") {
+    checkPin();
   }
-
-  form.action = `https://formsubmit.co/${recipient}`;
-
-  alert("Sending email...");
-
-  form.submit();
 });
 
 // Initial load

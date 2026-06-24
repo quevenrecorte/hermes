@@ -197,3 +197,76 @@ button:hover {
 button:active {
   transform: scale(0.98);
 }
+
+.pin-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.45);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+  padding: 20px;
+}
+
+.hidden {
+  display: none;
+}
+
+.pin-box {
+  width: 100%;
+  max-width: 380px;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(18px);
+  border-radius: 22px;
+  padding: 28px 22px;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.16);
+  text-align: center;
+}
+
+.pin-box h2 {
+  font-size: 24px;
+  margin-bottom: 12px;
+  color: #0f172a;
+}
+
+.pin-box p {
+  color: #475569;
+  margin-bottom: 20px;
+  font-size: 15px;
+}
+
+#pinInput {
+  text-align: center;
+  letter-spacing: 6px;
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.pin-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.pin-actions button {
+  flex: 1;
+  margin-top: 0;
+  padding: 14px;
+  font-size: 16px;
+}
+
+#cancelPin {
+  background: #cbd5e1;
+  color: #0f172a;
+  box-shadow: none;
+}
+
+.pin-error {
+  min-height: 20px;
+  margin-top: -10px;
+  margin-bottom: 14px;
+  font-size: 14px;
+  color: #dc2626;
+  font-weight: 600;
+}

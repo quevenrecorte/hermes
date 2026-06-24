@@ -70,6 +70,27 @@
     </div>
   </div>
 
+  <div id="pinModal" class="pin-modal hidden">
+  <div class="pin-box">
+    <h2>🔒 Security Verification</h2>
+    <p>Please enter your PIN to continue</p>
+
+    <input
+      type="password"
+      id="pinInput"
+      placeholder="Enter PIN"
+      maxlength="6"
+    />
+
+    <p id="pinError" class="pin-error"></p>
+
+    <div class="pin-actions">
+      <button type="button" id="cancelPin">Cancel</button>
+      <button type="button" id="confirmPin">Confirm</button>
+    </div>
+  </div>
+</div>
+
   <script src="app.js"></script>
 </body>
 </html>
