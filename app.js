@@ -1,14 +1,53 @@
-emailjs.init("gZEqoaLW8uSprpcyt");
-
 const form = document.getElementById("emailForm");
+const contactSelect = document.getElementById("contact");
+const manualEmailInput = document.getElementById("manualEmail");
+const subjectInput = document.getElementById("subject");
+const messageInput = document.getElementById("message");
 
-form.addEventListener("submit", function (e) {
+// Load contacts from core.json
+async function loadContacts() {
+  try {
+    const response = await fetch("data/core.json");
+    const data = await response.json();
+
+    data.contacts.forEach(contact => {
+      const option = document.createElement("option");
+      option.value = contact.email;
+      option.textContent = contact.name;
+      contactSelect.appendChild(option);
+    });
+  } catch (error) {
+    console.error("Failed to load contacts:", error);
+  }
+}
+
+// Validate PIN from runtime.json
+async function validatePin() {
+  try {
+    const response = await fetch("data/runtime.json");
+    const data = await response.json();
+
+    const enteredPin = prompt("Enter PIN to send email:");
+
+    if (enteredPin === null) {
+      return false;
+    }
+
+    return enteredPin === data.pin;
+  } catch (error) {
+    console.error("Failed to load PIN:", error);
+    return false;
+  }
+}
+
+// Form submit handler
+form.addEventListener("submit", async function (e) {
   e.preventDefault();
 
-  const selectedContact = document.getElementById("contact").value;
-  const manualEmail = document.getElementById("manualEmail").value.trim();
-  const subject = document.getElementById("subject").value.trim();
-  const message = document.getElementById("message").value.trim();
+  const selectedContact = contactSelect.value;
+  const manualEmail = manualEmailInput.value.trim();
+  const subject = subjectInput.value.trim();
+  const message = messageInput.value.trim();
 
   const recipient = manualEmail || selectedContact;
 
@@ -27,25 +66,19 @@ form.addEventListener("submit", function (e) {
     return;
   }
 
-  const templateParams = {
-    to_email: recipient,
-    subject: subject,
-    message: message,
-    name: "Hermes User"
-  };
+  const pinValid = await validatePin();
 
-  emailjs.send(
-    "service_1drjo6p",
-    "template_scpcz1q",
-    templateParams
-  )
-  .then(function () {
-    alert("Email sent successfully!");
+  if (!pinValid) {
+    alert("Invalid PIN.");
+    return;
+  }
 
-    form.reset();
-  })
-  .catch(function (error) {
-    console.error("FAILED...", error);
-    alert("Failed to send email.");
-  });
+  form.action = `https://formsubmit.co/${recipient}`;
+
+  alert("Sending email...");
+
+  form.submit();
 });
+
+// Initial load
+loadContacts();

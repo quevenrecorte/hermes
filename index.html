@@ -25,14 +25,12 @@
         <div class="subtitle-divider"></div>
       </div>
 
-      <form id="emailForm">
+      <form id="emailForm" method="POST">
 
         <label for="contact">Recipient</label>
         <select id="contact">
-          <option value="">Select Contact</option>
-          <option value="family@email.com">Family</option>
-          <option value="admin@email.com">Lighthouse Admin</option>
-        </select>
+  <option value="">Select Contact</option>
+</select>
 
         <div class="divider">
           <span></span>
@@ -44,30 +42,33 @@
         <input
           type="email"
           id="manualEmail"
+          name="manualEmail"
           placeholder="Enter email address"
         />
 
         <label for="subject">Subject</label>
         <input
-          type="text"
-          id="subject"
-          placeholder="Enter subject"
-        />
+  type="text"
+  id="subject"
+  name="subject"
+  placeholder="Enter subject"
+/>
 
         <label for="message">Message</label>
         <textarea
-          id="message"
-          rows="5"
-          placeholder="Type your message here..."
-        ></textarea>
-
+  id="message"
+  name="message"
+  rows="5"
+  placeholder="Type your message here..."
+></textarea>
+        
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_template" value="table">
         <button type="submit">✈ SEND EMAIL</button>
 
       </form>
     </div>
   </div>
-
-  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
   <script src="app.js"></script>
 </body>
