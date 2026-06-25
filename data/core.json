@@ -1,11 +1,11 @@
 {
   "contacts": [
     {
-      "name": "bossing",
+      "name": "mom1",
       "email": "archiejosol@gmail.com"
     },
     {
-      "name": "business",
+      "name": "store",
       "email": "official.recortech@gmail.com"
     },
     {
@@ -13,11 +13,11 @@
       "email": "breaktronicscafe@gmail.com"
     },
     {
-      "name": "admin",
+      "name": "dad",
       "email": "quevenrecorte@gmail.com"
     },
     {
-      "name": "bossing2",
+      "name": "mom2",
       "email": "archierecorte@gmail.com"
     }
   ]
