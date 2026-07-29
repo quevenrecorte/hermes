@@ -1,101 +1,171 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="routine">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Hermes</title>
+  <title>Hermes | Tactical Comms</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  
+  <!-- Icons -->
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  
+  <!-- Styles -->
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-  <div class="background-shapes">
-    <div class="circle circle1"></div>
-    <div class="circle circle2"></div>
-    <div class="dots dots1"></div>
-    <div class="dots dots2"></div>
+  <!-- Animated Background Elements -->
+  <div class="bg-elements">
+    <div class="glow-orb orb-1"></div>
+    <div class="glow-orb orb-2"></div>
+    <div class="glow-orb orb-3"></div>
+    <div class="grid-overlay"></div>
   </div>
 
   <div class="container">
-    <div class="card">
-
-      <div class="hero">
-        <div class="logo">✈</div>
+    <div class="glass-panel main-card">
+      
+      <header class="hero">
+        <div class="logo-wrapper">
+          <i class="ph-fill ph-paper-plane-tilt"></i>
+        </div>
         <h1>HERMES</h1>
-        <p class="subtitle">Emergency Mail System</p>
-        <div class="subtitle-divider"></div>
-      </div>
+        <p class="subtitle">TACTICAL COMMS SYSTEM</p>
+        <div class="status-indicator">
+          <span class="pulse-dot"></span>
+          <span class="status-text">SYSTEM SECURE</span>
+        </div>
+      </header>
 
-      <form id="emailForm" method="POST">
+      <form id="emailForm" method="POST" enctype="multipart/form-data">
+        
+        <!-- URGENCY LEVEL -->
+        <div class="form-group urgency-group">
+          <label>CLASSIFICATION LEVEL</label>
+          <div class="urgency-selector">
+            <input type="radio" id="urg_routine" name="urgency" value="routine" checked>
+            <label for="urg_routine" class="urg-btn routine"><i class="ph ph-check-circle"></i> Routine</label>
 
-        <label for="contact">Recipient</label>
-        <select id="contact">
-  <option value="">Select Contact</option>
-</select>
+            <input type="radio" id="urg_urgent" name="urgency" value="urgent">
+            <label for="urg_urgent" class="urg-btn urgent"><i class="ph ph-warning"></i> Urgent</label>
 
-        <div class="divider">
-          <span></span>
-          OR
-          <span></span>
+            <input type="radio" id="urg_critical" name="urgency" value="critical">
+            <label for="urg_critical" class="urg-btn critical"><i class="ph ph-warning-octagon"></i> Critical</label>
+          </div>
         </div>
 
-        <label for="manualEmail">Manual Email</label>
-        <input
-          type="email"
-          id="manualEmail"
-          name="manualEmail"
-          placeholder="Enter email address"
-        />
+        <!-- RECIPIENT -->
+        <div class="form-group">
+          <label for="contact"><i class="ph ph-users"></i> RECIPIENT DIRECTORY</label>
+          <div class="input-wrapper">
+            <select id="contact">
+              <option value="">-- Select Secure Contact --</option>
+            </select>
+            <div class="input-glow"></div>
+          </div>
+        </div>
 
-        <label for="subject">Subject</label>
-        <input
-  type="text"
-  id="subject"
-  name="subject"
-  placeholder="Enter subject"
-/>
+        <div class="divider">
+          <span></span><i class="ph ph-arrows-left-right"></i><span></span>
+        </div>
 
-        <label for="message">Message</label>
-        <textarea
-  id="message"
-  name="message"
-  rows="5"
-  placeholder="Type your message here..."
-></textarea>
-        
+        <div class="form-group">
+          <label for="manualEmail"><i class="ph ph-envelope"></i> MANUAL OVERRIDE (EMAIL)</label>
+          <div class="input-wrapper">
+            <input type="email" id="manualEmail" name="manualEmail" placeholder="Enter override address" />
+            <div class="input-glow"></div>
+          </div>
+        </div>
+
+        <!-- QUICK TEMPLATES -->
+        <div class="form-group">
+          <label for="templateSelect"><i class="ph ph-clipboard-text"></i> QUICK PROTOCOL</label>
+          <div class="input-wrapper">
+            <select id="templateSelect">
+              <option value="">-- Custom Transmission --</option>
+              <option value="medical">Medical Emergency Protocol</option>
+              <option value="security">Security Breach Protocol</option>
+              <option value="power">Infrastructure/Power Outage</option>
+              <option value="weather">Severe Weather Warning</option>
+              <option value="checkin">Routine Status Check-in</option>
+            </select>
+            <div class="input-glow"></div>
+          </div>
+        </div>
+
+        <!-- SUBJECT -->
+        <div class="form-group">
+          <label for="subject"><i class="ph ph-text-t"></i> SUBJECT</label>
+          <div class="input-wrapper">
+            <input type="text" id="subject" name="subject" placeholder="Transmission subject" />
+            <div class="input-glow"></div>
+          </div>
+        </div>
+
+        <!-- MESSAGE -->
+        <div class="form-group">
+          <label for="message"><i class="ph ph-chat-text"></i> MESSAGE PAYLOAD</label>
+          <div class="input-wrapper">
+            <textarea id="message" name="message" rows="4" placeholder="Enter payload details here..."></textarea>
+            <div class="input-glow"></div>
+          </div>
+        </div>
+
+        <!-- ATTACHMENTS & LOCATION -->
+        <div class="action-row">
+          <div class="form-group action-group">
+            <input type="file" id="attachment" name="attachment" class="hidden-input" accept="image/*,.pdf,.doc" />
+            <label for="attachment" class="action-btn"><i class="ph ph-paperclip"></i> <span id="fileName">Attach File</span></label>
+          </div>
+          
+          <div class="form-group action-group">
+            <button type="button" id="locationBtn" class="action-btn location-btn"><i class="ph ph-map-pin"></i> <span id="locationText">Pin Location</span></button>
+          </div>
+        </div>
+
+        <!-- HIDDEN FIELDS FOR FORMSUBMIT -->
         <input type="hidden" name="_captcha" value="false">
-        <input type="hidden" name="_template" value="table">
-        <input
-  type="hidden"
-  name="_next"
-  value="https://quevenrecorte.github.io/hermes/success.html"
-/>
+        <input type="hidden" name="_template" value="box">
+        <input type="hidden" name="_next" value="https://quevenrecorte.github.io/hermes/success.html" />
         
-        <button type="submit">✈ SEND EMAIL</button>
+        <button type="submit" class="submit-btn" id="submitBtn">
+          <div class="btn-content">
+            <i class="ph-fill ph-paper-plane-tilt"></i> 
+            <span>INITIALIZE TRANSMISSION</span>
+          </div>
+          <div class="btn-glow"></div>
+        </button>
 
       </form>
     </div>
   </div>
 
-  <div id="pinModal" class="pin-modal hidden">
-  <div class="pin-box">
-    <h2>🔒 Security Verification</h2>
-    <p>Please enter your PIN to continue</p>
+  <!-- PIN MODAL -->
+  <div id="pinModal" class="modal-overlay hidden">
+    <div class="glass-panel pin-box">
+      <div class="modal-icon">
+        <i class="ph-fill ph-lock-key"></i>
+      </div>
+      <h2>AUTHORIZATION REQUIRED</h2>
+      <p>Enter cryptographic PIN to confirm transmission</p>
 
-    <input
-      type="password"
-      id="pinInput"
-      placeholder="Enter PIN"
-      maxlength="6"
-    />
+      <div class="pin-input-wrapper">
+        <input type="password" id="pinInput" placeholder="••••••" maxlength="6" autocomplete="off" />
+        <div class="input-glow"></div>
+      </div>
+      
+      <p id="pinError" class="pin-error"></p>
 
-    <p id="pinError" class="pin-error"></p>
-
-    <div class="pin-actions">
-      <button type="button" id="cancelPin">Cancel</button>
-      <button type="button" id="confirmPin">Confirm</button>
+      <div class="modal-actions">
+        <button type="button" id="cancelPin" class="btn-cancel">ABORT</button>
+        <button type="button" id="confirmPin" class="btn-confirm">AUTHORIZE</button>
+      </div>
     </div>
   </div>
-</div>
 
   <script src="app.js"></script>
 </body>
