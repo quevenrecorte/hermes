@@ -1,24 +1,12 @@
 {
   "contacts": [
     {
-      "name": "mom1",
+      "name": "emergency contact a",
       "email": "archiejosol@gmail.com"
     },
     {
-      "name": "store",
-      "email": "official.recortech@gmail.com"
-    },
-    {
-      "name": "pisonet",
-      "email": "breaktronicscafe@gmail.com"
-    },
-    {
-      "name": "dad",
+      "name": "emergency contact q",
       "email": "quevenrecorte@gmail.com"
-    },
-    {
-      "name": "mom2",
-      "email": "archierecorte@gmail.com"
     }
   ]
 }
