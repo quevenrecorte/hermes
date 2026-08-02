@@ -10,7 +10,7 @@ const confirmPin = document.getElementById("confirmPin");
 const cancelPin = document.getElementById("cancelPin");
 const pinError = document.getElementById("pinError");
 
-// New Elements
+// UI Elements
 const urgencyRadios = document.querySelectorAll('input[name="urgency"]');
 const templateSelect = document.getElementById("templateSelect");
 const attachmentInput = document.getElementById("attachment");
@@ -23,27 +23,47 @@ const statusText = document.querySelector(".status-text");
 let pendingRecipient = null;
 let userLocation = "";
 
-// Templates Data
+// Simple, clear message templates
 const templates = {
   medical: {
     subject: "MEDICAL EMERGENCY",
-    message: "A medical emergency has occurred at my location. Please send immediate assistance. Individual requires immediate attention."
+    message: "There is a medical emergency here. Please send help immediately."
   },
   security: {
     subject: "SECURITY INCIDENT",
-    message: "A security breach/incident is actively occurring. Immediate response is required to secure the perimeter and ensure safety."
+    message: "There is a security problem here. We need assistance to keep everyone safe."
   },
   power: {
-    subject: "INFRASTRUCTURE FAILURE",
-    message: "Significant power or infrastructure failure detected. Critical systems may be offline. Awaiting further instructions."
+    subject: "POWER OUTAGE",
+    message: "The power is out here. Some of our systems are offline. Please let us know what to do."
   },
   weather: {
     subject: "SEVERE WEATHER WARNING",
-    message: "Severe weather conditions are impacting our sector. Taking shelter and following standard safety protocols."
+    message: "We are having severe weather here. We are staying safe inside and waiting it out."
   },
   checkin: {
-    subject: "ROUTINE STATUS CHECK",
-    message: "All systems nominal. Personnel accounted for. No incidents to report at this time."
+    subject: "ROUTINE STATUS CHECK-IN",
+    message: "Everything is okay here. All team members are safe and there are no problems."
+  },
+  lost_phone: {
+    subject: "LOST PHONE - CONTACT ME",
+    message: "I have lost my phone or am using a different device. Please contact me through this email as soon as possible."
+  },
+  unsafe: {
+    subject: "UNSAFE STATUS - TRACK MY LOCATION",
+    message: "I do not feel safe at my current location. Please track my coordinates and contact me immediately."
+  },
+  ride: {
+    subject: "NEED A RIDE / FETCH ME",
+    message: "I need a ride and would like to be picked up from my current location. Please let me know if you can fetch me."
+  },
+  help: {
+    subject: "NEED URGENT HELP",
+    message: "I need urgent help or assistance. Please reach out to me as soon as you see this."
+  },
+  late: {
+    subject: "RUNNING LATE",
+    message: "I am running late but everything is fine. I will keep you updated."
   }
 };
 
@@ -53,10 +73,10 @@ urgencyRadios.forEach(radio => {
     const urgency = e.target.value;
     html.setAttribute('data-theme', urgency);
     
-    // Update status text
-    if(urgency === 'routine') statusText.textContent = 'SYSTEM SECURE';
-    if(urgency === 'urgent') statusText.textContent = 'ELEVATED ALERT';
-    if(urgency === 'critical') statusText.textContent = 'CRITICAL ALERT';
+    // Update status text with simple terms
+    if (urgency === 'routine') statusText.textContent = 'READY TO SEND';
+    if (urgency === 'urgent') statusText.textContent = 'URGENT ALERT';
+    if (urgency === 'critical') statusText.textContent = 'EMERGENCY ALERT';
   });
 });
 
@@ -144,7 +164,7 @@ function showPinModal(recipient) {
   pendingRecipient = recipient;
   pinInput.value = "";
   pinError.textContent = "";
-  confirmPin.textContent = "AUTHORIZE";
+  confirmPin.textContent = "CONFIRM & SEND";
   confirmPin.disabled = false;
   pinModal.classList.remove("hidden");
   setTimeout(() => pinInput.focus(), 100);
@@ -162,14 +182,14 @@ async function checkPin() {
     const data = await response.json();
 
     if (pinInput.value !== data.pin) {
-      pinError.textContent = "INVALID CRYPTOGRAPHIC PIN";
+      pinError.textContent = "INCORRECT PIN";
       pinInput.value = "";
       pinInput.focus();
       return;
     }
 
     pinError.textContent = "";
-    confirmPin.innerHTML = '<i class="ph ph-spinner ph-spin"></i> TRANSMITTING...';
+    confirmPin.innerHTML = '<i class="ph ph-spinner ph-spin"></i> SENDING...';
     confirmPin.disabled = true;
 
     // Apply urgency prefix to subject before sending if not already there
@@ -186,7 +206,7 @@ async function checkPin() {
 
   } catch (error) {
     console.error("Failed to load PIN:", error);
-    pinError.textContent = "SYSTEM ERROR: PIN VALIDATION FAILED";
+    pinError.textContent = "PIN ERROR: VALIDATION FAILED";
   }
 }
 
@@ -208,17 +228,17 @@ form.addEventListener("submit", function (e) {
   const recipient = manualEmail || selectedContact;
 
   if (!recipient) {
-    alert("SYSTEM HALT: Missing recipient email.");
+    alert("Please select or enter a recipient email.");
     return;
   }
 
   if (!subject) {
-    alert("SYSTEM HALT: Subject payload missing.");
+    alert("Please enter a subject.");
     return;
   }
 
   if (!message) {
-    alert("SYSTEM HALT: Message payload missing.");
+    alert("Please enter a message.");
     return;
   }
 

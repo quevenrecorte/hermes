@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Hermes | Tactical Comms</title>
+  <title>Hermes | Quick Message Sender</title>
   
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -29,117 +29,131 @@
   <div class="container">
     <div class="glass-panel main-card">
       
-      <header class="hero">
-        <div class="logo-wrapper">
-          <i class="ph-fill ph-paper-plane-tilt"></i>
+      <header class="hero-bar">
+        <div class="header-left">
+          <div class="logo-wrapper">
+            <i class="ph-fill ph-paper-plane-tilt"></i>
+          </div>
+          <div class="header-titles">
+            <h1>HERMES</h1>
+            <p class="subtitle">QUICK MESSAGE SENDER</p>
+          </div>
         </div>
-        <h1>HERMES</h1>
-        <p class="subtitle">TACTICAL COMMS SYSTEM</p>
         <div class="status-indicator">
           <span class="pulse-dot"></span>
-          <span class="status-text">SYSTEM SECURE</span>
+          <span class="status-text">READY TO SEND</span>
         </div>
       </header>
 
       <form id="emailForm" method="POST" enctype="multipart/form-data">
-        
-        <!-- URGENCY LEVEL -->
-        <div class="form-group urgency-group">
-          <label>CLASSIFICATION LEVEL</label>
-          <div class="urgency-selector">
-            <input type="radio" id="urg_routine" name="urgency" value="routine" checked>
-            <label for="urg_routine" class="urg-btn routine"><i class="ph ph-check-circle"></i> Routine</label>
+        <div class="form-grid">
+          
+          <!-- LEFT COLUMN: SETTINGS -->
+          <div class="form-col left-col">
+            <!-- URGENCY LEVEL -->
+            <div class="form-group urgency-group">
+              <label>URGENCY LEVEL</label>
+              <div class="urgency-selector">
+                <input type="radio" id="urg_routine" name="urgency" value="routine" checked>
+                <label for="urg_routine" class="urg-btn routine"><i class="ph ph-check-circle"></i> Normal</label>
 
-            <input type="radio" id="urg_urgent" name="urgency" value="urgent">
-            <label for="urg_urgent" class="urg-btn urgent"><i class="ph ph-warning"></i> Urgent</label>
+                <input type="radio" id="urg_urgent" name="urgency" value="urgent">
+                <label for="urg_urgent" class="urg-btn urgent"><i class="ph ph-warning"></i> Urgent</label>
 
-            <input type="radio" id="urg_critical" name="urgency" value="critical">
-            <label for="urg_critical" class="urg-btn critical"><i class="ph ph-warning-octagon"></i> Critical</label>
+                <input type="radio" id="urg_critical" name="urgency" value="critical">
+                <label for="urg_critical" class="urg-btn critical"><i class="ph ph-warning-octagon"></i> Emergency</label>
+              </div>
+            </div>
+
+            <!-- RECIPIENT -->
+            <div class="form-group">
+              <label for="contact"><i class="ph ph-users"></i> CHOOSE RECIPIENT</label>
+              <div class="input-wrapper">
+                <select id="contact">
+                  <option value="">-- Select Contact --</option>
+                </select>
+                <div class="input-glow"></div>
+              </div>
+            </div>
+
+            <div class="divider">
+              <span></span><i class="ph ph-arrows-left-right"></i><span></span>
+            </div>
+
+            <!-- MANUAL EMAIL -->
+            <div class="form-group">
+              <label for="manualEmail"><i class="ph ph-envelope"></i> OR TYPE EMAIL ADDRESS</label>
+              <div class="input-wrapper">
+                <input type="email" id="manualEmail" name="manualEmail" placeholder="Enter custom email address" />
+                <div class="input-glow"></div>
+              </div>
+            </div>
+
+            <!-- QUICK TEMPLATES -->
+            <div class="form-group">
+              <label for="templateSelect"><i class="ph ph-clipboard-text"></i> QUICK TEMPLATE</label>
+              <div class="input-wrapper">
+                <select id="templateSelect">
+                  <option value="">-- Custom Message --</option>
+                  <option value="medical">Medical Emergency</option>
+                  <option value="security">Security Incident</option>
+                  <option value="power">Power Outage</option>
+                  <option value="weather">Severe Weather</option>
+                  <option value="checkin">Normal Status Check-in</option>
+                  <option value="lost_phone">Lost Phone / Contact Me</option>
+                  <option value="unsafe">Unsafe / Track My Location</option>
+                  <option value="ride">Need a Ride / Pick Me Up</option>
+                  <option value="help">Need Urgent Help</option>
+                  <option value="late">Running Late</option>
+                </select>
+                <div class="input-glow"></div>
+              </div>
+            </div>
           </div>
-        </div>
 
-        <!-- RECIPIENT -->
-        <div class="form-group">
-          <label for="contact"><i class="ph ph-users"></i> RECIPIENT DIRECTORY</label>
-          <div class="input-wrapper">
-            <select id="contact">
-              <option value="">-- Select Secure Contact --</option>
-            </select>
-            <div class="input-glow"></div>
-          </div>
-        </div>
+          <!-- RIGHT COLUMN: CONTENT & SEND -->
+          <div class="form-col right-col">
+            <!-- SUBJECT -->
+            <div class="form-group">
+              <label for="subject"><i class="ph ph-text-t"></i> SUBJECT</label>
+              <div class="input-wrapper">
+                <input type="text" id="subject" name="subject" placeholder="Enter message subject" />
+                <div class="input-glow"></div>
+              </div>
+            </div>
 
-        <div class="divider">
-          <span></span><i class="ph ph-arrows-left-right"></i><span></span>
-        </div>
+            <!-- MESSAGE -->
+            <div class="form-group message-group">
+              <label for="message"><i class="ph ph-chat-text"></i> MESSAGE</label>
+              <div class="input-wrapper message-wrapper">
+                <textarea id="message" name="message" placeholder="Type your message here..."></textarea>
+                <div class="input-glow"></div>
+              </div>
+            </div>
 
-        <div class="form-group">
-          <label for="manualEmail"><i class="ph ph-envelope"></i> MANUAL OVERRIDE (EMAIL)</label>
-          <div class="input-wrapper">
-            <input type="email" id="manualEmail" name="manualEmail" placeholder="Enter override address" />
-            <div class="input-glow"></div>
-          </div>
-        </div>
+            <!-- ATTACHMENTS & LOCATION -->
+            <div class="action-row">
+              <div class="form-group action-group">
+                <input type="file" id="attachment" name="attachment" class="hidden-input" accept="image/*,.pdf,.doc" />
+                <label for="attachment" class="action-btn"><i class="ph ph-paperclip"></i> <span id="fileName">Attach File</span></label>
+              </div>
+              
+              <div class="form-group action-group">
+                <button type="button" id="locationBtn" class="action-btn location-btn"><i class="ph ph-map-pin"></i> <span id="locationText">Pin Location</span></button>
+              </div>
+            </div>
 
-        <!-- QUICK TEMPLATES -->
-        <div class="form-group">
-          <label for="templateSelect"><i class="ph ph-clipboard-text"></i> QUICK PROTOCOL</label>
-          <div class="input-wrapper">
-            <select id="templateSelect">
-              <option value="">-- Custom Transmission --</option>
-              <option value="medical">Medical Emergency Protocol</option>
-              <option value="security">Security Breach Protocol</option>
-              <option value="power">Infrastructure/Power Outage</option>
-              <option value="weather">Severe Weather Warning</option>
-              <option value="checkin">Routine Status Check-in</option>
-            </select>
-            <div class="input-glow"></div>
-          </div>
-        </div>
-
-        <!-- SUBJECT -->
-        <div class="form-group">
-          <label for="subject"><i class="ph ph-text-t"></i> SUBJECT</label>
-          <div class="input-wrapper">
-            <input type="text" id="subject" name="subject" placeholder="Transmission subject" />
-            <div class="input-glow"></div>
-          </div>
-        </div>
-
-        <!-- MESSAGE -->
-        <div class="form-group">
-          <label for="message"><i class="ph ph-chat-text"></i> MESSAGE PAYLOAD</label>
-          <div class="input-wrapper">
-            <textarea id="message" name="message" rows="4" placeholder="Enter payload details here..."></textarea>
-            <div class="input-glow"></div>
-          </div>
-        </div>
-
-        <!-- ATTACHMENTS & LOCATION -->
-        <div class="action-row">
-          <div class="form-group action-group">
-            <input type="file" id="attachment" name="attachment" class="hidden-input" accept="image/*,.pdf,.doc" />
-            <label for="attachment" class="action-btn"><i class="ph ph-paperclip"></i> <span id="fileName">Attach File</span></label>
+            <!-- SUBMIT BUTTON -->
+            <button type="submit" class="submit-btn" id="submitBtn">
+              <div class="btn-content">
+                <i class="ph-fill ph-paper-plane-tilt"></i> 
+                <span>SEND MESSAGE</span>
+              </div>
+              <div class="btn-glow"></div>
+            </button>
           </div>
           
-          <div class="form-group action-group">
-            <button type="button" id="locationBtn" class="action-btn location-btn"><i class="ph ph-map-pin"></i> <span id="locationText">Pin Location</span></button>
-          </div>
         </div>
-
-        <!-- HIDDEN FIELDS FOR FORMSUBMIT -->
-        <input type="hidden" name="_captcha" value="false">
-        <input type="hidden" name="_template" value="box">
-        <input type="hidden" name="_next" value="https://quevenrecorte.github.io/hermes/success.html" />
-        
-        <button type="submit" class="submit-btn" id="submitBtn">
-          <div class="btn-content">
-            <i class="ph-fill ph-paper-plane-tilt"></i> 
-            <span>INITIALIZE TRANSMISSION</span>
-          </div>
-          <div class="btn-glow"></div>
-        </button>
-
       </form>
     </div>
   </div>
@@ -150,8 +164,8 @@
       <div class="modal-icon">
         <i class="ph-fill ph-lock-key"></i>
       </div>
-      <h2>AUTHORIZATION REQUIRED</h2>
-      <p>Enter cryptographic PIN to confirm transmission</p>
+      <h2>CONFIRM PIN</h2>
+      <p>Enter your 6-digit PIN to send the message</p>
 
       <div class="pin-input-wrapper">
         <input type="password" id="pinInput" placeholder="••••••" maxlength="6" autocomplete="off" />
@@ -161,8 +175,8 @@
       <p id="pinError" class="pin-error"></p>
 
       <div class="modal-actions">
-        <button type="button" id="cancelPin" class="btn-cancel">ABORT</button>
-        <button type="button" id="confirmPin" class="btn-confirm">AUTHORIZE</button>
+        <button type="button" id="cancelPin" class="btn-cancel">CANCEL</button>
+        <button type="button" id="confirmPin" class="btn-confirm">CONFIRM & SEND</button>
       </div>
     </div>
   </div>
